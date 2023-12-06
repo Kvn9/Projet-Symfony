@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -15,6 +16,14 @@ class Product
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 1,
+        max: 255,
+        minMessage: "Le nom doit contenir 1 caractère au minimun",
+        maxMessage: "Le nom ne doit pas contenir plus que 255 caractères"
+    )]
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;

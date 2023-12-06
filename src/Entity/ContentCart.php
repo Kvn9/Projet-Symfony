@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ContentCartRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContentCartRepository::class)]
 class ContentCart
@@ -13,6 +14,14 @@ class ContentCart
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 1,
+        max: 255,
+        minMessage: "Le nom doit contenir 1 caractère au minimun",
+        maxMessage: "Le nom ne doit pas contenir plus que 255 caractères"
+    )]
 
     #[ORM\Column]
     private ?int $quantity = null;
