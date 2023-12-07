@@ -1,13 +1,31 @@
 {# navbar.twig #}
 <nav class="d-flex align-items-center justify-content-between">
     <div class="logo d-flex align-items-center">
-        <img src="{{ asset('images/logo.png') }}">
+       <a href="{{ path('app_cart_index') }}"> <img src="{{ asset('images/logo.png') }}"></a>
         <h1>Talent Craft</h1>
     </div>
     <ul class="d-flex">
         <li><a href="{{ path('app_product_index') }}">{{'navbar.accueil'|trans}}</a></li>
         <li><a href="{{ path('app_content_cart_index') }}">{{'navbar.panier'|trans}}</a></li>
         <li><a href="{{ path('app_user_index') }}">{{'navbar.compte'|trans}}</a></li>
+        <li><a href="{{ path('app_user_index') }}">{{'navbar.inscription'|trans}}</a></li>
+        <nav> 
+            <ul class= "nav">
+                <li class ="nav-item">
+                {% if is_granted('ROLE_USER') %}
+                 <li class ="nav-item">
+                    <a href= "{{path('app_logout')}}" class="btn btn-primary"> Déconnexions</a>
+                </li>
+                {% else %}
+                 <li class ="nav-item">
+                    <a href= "{{path('app_login')}}" class="btn btn-primary"> Connexion</a>
+                </li>
+                 <li class ="nav-item">
+                    <a href= "{{path('app_registration')}}" class="btn btn-primary"> Inscription</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
     </ul>
     
     <img  class="drapeau" src="{{ asset('images/logo-eu.png') }}">
