@@ -1,0 +1,10 @@
+{# templates/bundles/TwigBundle/Exception/error500.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="msg-error">
+        <h3>ERREUR 500</h3>
+        <p><a href="{{ path('app_product_index') }}">Retourner</a> à la page d’accueil</p>
+    </div>
+    <img class="error" src="{{ asset('images/error.png') }}">
+{% endblock %}

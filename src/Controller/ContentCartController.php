@@ -27,6 +27,7 @@ class ContentCartController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $contentCart = new ContentCart();
+
         $form = $this->createForm(ContentCartType::class, $contentCart);
         $form->handleRequest($request);
 
