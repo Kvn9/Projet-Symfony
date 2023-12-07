@@ -21,6 +21,18 @@ class CartRepository extends ServiceEntityRepository
         parent::__construct($registry, Cart::class);
     }
 
+    //SELECT * FROM cart WHERE user_id = id AND state = false;
+    public function findByStateFalse($id): array
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.state = :val')
+            ->andWhere('e.user = :id')
+            ->setParameter('val', false)
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Cart[] Returns an array of Cart objects
 //     */

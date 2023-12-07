@@ -15,6 +15,9 @@ navbar:
   panier: Cart
   compte: My Account
   inscription: Sign up
+  connexion: Login
+  deconnexion: Logout
+
 
 user: 
 

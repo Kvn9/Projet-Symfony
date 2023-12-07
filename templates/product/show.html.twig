@@ -44,15 +44,15 @@
 {% endblock %}
 
 {% block body %}
-    <div class="d-flex detail h-100 mt-5">
+    <form class="d-flex detail h-100 mt-5" method="post" action="{{ path('app_add_content_cart', {'id': product.id}) }}">
         <img src="{{ asset('upload/' ~ product.picture) }}" >
         <div class="w-100 h-100 d-flex flex-column justify-content-between">
             <div class="card">
                 <h1>{{ product.name }}</h1>
                 <h3>{{ product.prize }} €/formation</h3>
                 <div>
-                    <label for="selectOption">Quantité</label>
-                    <select id="selectOption" name="selectOption">
+                    <label for="productQuantity">Quantité</label>
+                    <select id="productQuantity" name="productQuantity">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -61,47 +61,10 @@
                 <p>{{ product.description }}</p>
             </div>
             <div class="w-100">
-                <a><button class="w-100 d-flex justify-content-between align-items-center buy mt-3">Ajouter au panier <i class='bx bx-cart'></i></button></a>
+                <a><button type="submit" name="add-cart" class="w-100 d-flex justify-content-between align-items-center buy mt-3">Ajouter au panier <i class='bx bx-cart'></i></button></a>
                 <a href="{{ path('app_product_edit', {'id': product.id}) }}"><button class="w-100 d-flex justify-content-center update mt-3">Modifier le produit</button></a>
                 <a href="{{ path('app_product_delete', {'id': product.id}) }}"><button class="w-100 d-flex justify-content-center remove mt-3">Supprimer le produit</button></a>
             </div>
         </div>
-    </div>
-
-
-    {#
-
-    <table class="table">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ product.id }}</td>
-        </tr>
-        <tr>
-            <th>Name</th>
-            <td>{{ product.name }}</td>
-        </tr>
-        <tr>
-            <th>Description</th>
-            <td>{{ product.description }}</td>
-        </tr>
-        <tr>
-            <th>Prize</th>
-            <td>{{ product.prize }}</td>
-        </tr>
-        <tr>
-            <th>Stock</th>
-            <td>{{ product.stock }}</td>
-        </tr>
-        <tr>
-            <th>Picture</th>
-            <td>{{ product.picture }}</td>
-        </tr>
-    </tbody>
-</table>
-    #}
-
-
-
-
+    </form>
 {% endblock %}
