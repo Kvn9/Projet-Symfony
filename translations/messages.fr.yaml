@@ -1,4 +1,13 @@
 user: 
+  role: Rôle
+  password: Mot de passe
+  actions: Actions
+  show: Voir
+  supprimer: Supprimer
+  edit: Modifier
+  new: Nouveau
+  user : Utilisateur
+
 
 product: 
 
@@ -14,6 +23,7 @@ footer:
   email: Email
   accueil: Accueil
   panier: Panier
+  inscription: Inscription
   compte: Mon Compte
 
 navbar:

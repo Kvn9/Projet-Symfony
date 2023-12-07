@@ -3,16 +3,16 @@
 {% block title %}User index{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <h1>{{'user.user'|trans}}</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>actions</th>
+                <th>{{'user.role'|trans}}</th>
+                <th>{{'user.password'|trans}}</th>
+                <th>{{'user.actions'|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -23,8 +23,8 @@
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
                 <td>{{ user.password }}</td>
                 <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('app_user_delete', {'id': user.id}) }}" class= "btn btn-danger">{{'user.supprimer'|trans}}</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class= "btn btn-success">{{'user.edit'|trans}}</a>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +35,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+    <a href="{{ path('app_user_new') }}"> {{'user.new'|trans}}</a>
 {% endblock %}
