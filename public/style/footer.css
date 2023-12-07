@@ -1,0 +1,39 @@
+/* Utilisez les classes Bootstrap pour définir la couleur de fond */
+footer {
+    background-color: #192247;
+    color: white; /* Déplacez la couleur du texte ici pour simplifier */
+    padding: 20px; /* Ajoutez un espace interne pour un meilleur aspect visuel */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+    
+
+/* Rendre le texte blanc et ajouter de l'espace au-dessus des titres */
+footer h4 {
+    color: #3E86AE; /* Utilisez la couleur #3E86AE pour les titres */
+    margin-top: 15px;
+}
+
+/* Ajouter un espacement entre les icônes et le texte */
+.icon-container i {
+    margin-right: 5px;
+}
+
+/* Rendre le contenu plus lisible sur des appareils plus petits */
+@media (max-width: 767px) {
+    footer p, .all-footer a {
+        font-size: 14px; /* Réduire la taille de la police pour les paragraphes et les liens */
+    }
+}
+
+/* Style pour les liens sans la couleur rouge au survol */
+.footer li a {
+    color: #fff; /* Utilisez la couleur du texte pour les liens */
+    transition: color 0.3s; /* Ajoute une transition pour un changement de couleur plus doux */
+}
+
+.footer li a:hover {
+    color: #3E86AE; /* Couleur du texte au survol (identique à la couleur normale pour éviter la couleur rouge) */
+}
