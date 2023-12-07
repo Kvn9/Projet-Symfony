@@ -1,5 +1,5 @@
 {# card-product.html.twig #}
-<div class="card-product d-flex flex-column p-2">
+<div class="card-product d-flex flex-column p-3">
     {% if product.picture is not null %}
         <img src="{{ asset('upload/' ~ product.picture) }}" alt="img-card" >
     {% endif %}
@@ -10,4 +10,4 @@
         </div>
         <a href="{{ path('app_product_show', {'id': product.id}) }}"><button>En savoir plus</button></a>
     </div>
-</div>g
+</div>

@@ -9,9 +9,7 @@
         {% for product in products %}
             {% include 'component/card-product.html.twig' %}
         {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
+            <p>Aucune formations en ligne</p>
         {% endfor %}
     </div>
 
