@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-#[Route('/product')]
+#[Route('/{_locale}/product')]
 class ProductController extends AbstractController
 {
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
@@ -69,7 +69,7 @@ class ProductController extends AbstractController
     #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Product $product, EntityManagerInterface $em): Response
     {
-        if($product == null) {
+        if ($product == null) {
             $this->addFlash('danger', 'Model introuvable');
             return $this->redirectToRoute('app_model');
         }
@@ -93,19 +93,19 @@ class ProductController extends AbstractController
             }
             $em->persist($product);
             $em->flush();
-            $this->addFlash('success', 'Model mis à jour');
+            $this->addFlash('success', 'Formation mis à jour');
 
             return $this->redirectToRoute('app_product_index');
         }
         return $this->render('product/edit.html.twig', [
-            'edit' =>$form->createView(),
+            'edit' => $form->createView(),
         ]);
     }
 
     #[Route('/delete/{id}', name: 'app_product_delete')]
     public function delete(Product $product, EntityManagerInterface $em): Response
     {
-        if($product == null) {
+        if ($product == null) {
             $this->addFlash('danger', 'Produit introuvable');
             return $this->redirectToRoute('app_product_index');
         }
@@ -115,6 +115,5 @@ class ProductController extends AbstractController
 
         $this->addFlash('warning', 'Produit supprimé');
         return $this->redirectToRoute('app_product_index');
-
     }
 }

@@ -14,4 +14,10 @@ footer:
   email: Email
   accueil: Accueil
   panier: Panier
-  profil: Profil
+  compte: Mon Compte
+
+navbar:
+  accueil: Accueil
+  panier: Panier
+  compte: Mon Compte
+

@@ -7,7 +7,12 @@ footer:
   email: Email
   accueil: Home
   panier: Cart
-  profil: Profile
+  compte: My Account
+
+navbar: 
+  accueil: Home
+  panier: Cart
+  compte: My Account
 
 user: 
 
