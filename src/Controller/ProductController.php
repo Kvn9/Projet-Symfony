@@ -124,8 +124,8 @@ class ProductController extends AbstractController
     {
         $user = $this->getUser();
 
-        if($request->request->has('add-cart')) {
-            if(is_null($user)) {
+        if ($request->request->has('add-cart')) {
+            if (is_null($user)) {
                 return $this->redirectToRoute('app_login');
             }
 
@@ -150,6 +150,5 @@ class ProductController extends AbstractController
             $em->flush();
         }
         return $this->redirectToRoute('app_product_show', ['id' => $product->getId()]);
-
     }
 }

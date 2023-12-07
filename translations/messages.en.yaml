@@ -9,6 +9,7 @@ footer:
   panier: Cart
   compte: My Account
   inscription: Sign up
+  delete: Delete
 
 navbar: 
   accueil: Home
@@ -20,6 +21,14 @@ navbar:
 
 
 user: 
+  role: Role
+  password: Password
+  actions: Actions
+  show: Show
+  edit: Edit
+  new: New
+  user : User
+
 
 product: 
 

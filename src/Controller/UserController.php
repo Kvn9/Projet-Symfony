@@ -23,6 +23,34 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/me', name: 'app_user')]
+    public function user(
+        EntityManagerInterface $em,
+        Request $request
+    ): Response {
+        $user = $this->getUser();
+        if ($user) {
+            $form = $this->createForm(UserType::class, $user);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em->persist($user);
+                $em->flush();
+
+                $this->addFlash('success', 'Utilisateur modifié');
+            }
+        } else {
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('user/edit.html.twig', [
+            'user' => $user,
+            'edit' => $form->createView(),
+        ]);
+    }
+
+
+
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -51,7 +79,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(UserType::class, $user);
@@ -63,20 +91,30 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('user/edit.html.twig', [
+        return $this->render('user/test', [
             'user' => $user,
-            'form' => $form,
+            'edit' => $form->createView(),
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
-    {
+    #[Route('/delete/{id}', name: 'app_user_delete')]
+    public function delete(
+        Request $request,
+        User $user = null,
+        EntityManagerInterface $em,
+    ): Response {
+        if ($user == null) {
+            $this->addFlash('danger', 'Utilisateur introuvable');
+            return $this->redirectToRoute('app_user_index');
+        }
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($user);
-            $entityManager->flush();
+            $this->addFlash('danger', 'Token CSRF invalide');
+            $em->remove($user);
+            $em->flush();
+
+            $this->addFlash('success', 'Utilisateur supprimé');
         }
 
-        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_user_index');
     }
 }
