@@ -1,0 +1,13 @@
+{# card-product.html.twig #}
+<div class="card-product d-flex flex-column p-2">
+    {% if product.picture is not null %}
+        <img src="{{ asset('upload/' ~ product.picture) }}" alt="img-card" >
+    {% endif %}
+    <div>
+        <div class="d-flex flex-column">
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.prize}} €</p>
+        </div>
+        <a href="{{ path('app_product_show', {'id': product.id}) }}"><button>En savoir plus</button></a>
+    </div>
+</div>g
