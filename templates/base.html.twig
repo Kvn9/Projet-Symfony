@@ -63,6 +63,41 @@
                 color: deepskyblue;
                 margin-bottom: 5px;
             }
+            .error {
+                width: 100%;
+                height: 100%;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 999;
+            }
+
+            .msg-error {
+                position: absolute;
+                top: 10%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                z-index: 99999;
+                color: rgba(255, 255, 255, 0.85);
+                left: 50%;
+                transform: translate(-50%, 0);
+
+            }
+
+            .msg-error h3 {
+                text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+                font-size: 135px;
+                font-weight: 700;
+            }
+            .msg-error p {
+                text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+                font-size: 40px;
+                font-weight: 700;
+                }
+
+
+
         </style>
         {% block stylesheets %}
         {% endblock %}
