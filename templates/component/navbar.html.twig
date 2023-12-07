@@ -7,25 +7,15 @@
     <ul class="d-flex">
         <li><a href="{{ path('app_product_index') }}">{{'navbar.accueil'|trans}}</a></li>
         <li><a href="{{ path('app_content_cart_index') }}">{{'navbar.panier'|trans}}</a></li>
-        <li><a href="{{ path('app_user_index') }}">{{'navbar.compte'|trans}}</a></li>
-        <li><a href="{{ path('app_user_index') }}">{{'navbar.inscription'|trans}}</a></li>
-        <nav> 
-            <ul class= "nav">
-                <li class ="nav-item">
-                {% if is_granted('ROLE_USER') %}
-                 <li class ="nav-item">
-                    <a href= "{{path('app_logout')}}" class="btn btn-primary"> Déconnexions</a>
-                </li>
-                {% else %}
-                 <li class ="nav-item">
-                    <a href= "{{path('app_login')}}" class="btn btn-primary"> Connexion</a>
-                </li>
-                 <li class ="nav-item">
-                    <a href= "{{path('app_registration')}}" class="btn btn-primary"> Inscription</a>
-                </li>
-                {% endif %}
-            </ul>
-        </nav>
+
+        {% if is_granted('ROLE_USER') %}
+            <li><a href="{{ path('app_user_index') }}">{{'navbar.compte'|trans}}</a></li>
+            <li><a href= "{{path('app_logout')}}" class="btn btn-primary"> {{'navbar.deconnexion'|trans}}</a></li>
+        {% else %}
+            <li><a href="{{ path('app_registration') }}">{{'navbar.inscription'|trans}}</a></li>
+            <li><a href="{{ path('app_login') }}">{{'navbar.connexion'|trans}}</a></li>
+        {% endif %}
+
     </ul>
     
     <img  class="drapeau" src="{{ asset('images/logo-eu.png') }}">

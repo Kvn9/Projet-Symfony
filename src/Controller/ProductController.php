@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\ContentCart;
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Repository\CartRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use App\Entity\Cart;
 
 #[Route('/{_locale}/product')]
 class ProductController extends AbstractController
@@ -115,5 +118,38 @@ class ProductController extends AbstractController
 
         $this->addFlash('warning', 'Produit supprimé');
         return $this->redirectToRoute('app_product_index');
+    }
+    #[Route('/add/{id}', name: 'app_add_content_cart', methods: ['GET', 'POST'])]
+    public function toCart(Request $request, EntityManagerInterface $em, CartRepository $cartRepository, Product $product): Response
+    {
+        $user = $this->getUser();
+
+        if($request->request->has('add-cart')) {
+            if(is_null($user)) {
+                return $this->redirectToRoute('app_login');
+            }
+
+            $falseStatesList = $cartRepository->findByStateFalse($user->getId());
+            if (empty($falseStatesList)) {
+                $cart = new Cart();
+                $cart->setUser($user)
+                    ->setState(false);
+                $em->persist($cart);
+                $em->flush();
+            } else {
+                $cart = $falseStatesList[0];
+            }
+
+            $contentCart = new ContentCart();
+            $contentCart->setCart($cart)
+                ->setProduct($product)
+                ->setQuantity($request->request->get('productQuantity'))
+                ->setCreatedAt(new \DateTime());
+
+            $em->persist($contentCart);
+            $em->flush();
+        }
+        return $this->redirectToRoute('app_product_show', ['id' => $product->getId()]);
+
     }
 }
