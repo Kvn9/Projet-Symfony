@@ -16,7 +16,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class CartController extends AbstractController
 {
     #[Route('/', name: 'app_cart_index', methods: ['GET'])]
-    public function index(CartRepository $cartRepository, TranslatorInterface $translator, EntityManagerInterface $em): Response
+    public function index(CartRepository $cartRepository, EntityManagerInterface $em): Response
     {
         return $this->render('cart/index.html.twig', [
             'carts' => $cartRepository->findAll(),
