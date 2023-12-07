@@ -3,7 +3,12 @@ footer {
     background-color: #192247;
     color: white; /* Déplacez la couleur du texte ici pour simplifier */
     padding: 20px; /* Ajoutez un espace interne pour un meilleur aspect visuel */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
+    
 
 /* Rendre le texte blanc et ajouter de l'espace au-dessus des titres */
 footer h4 {

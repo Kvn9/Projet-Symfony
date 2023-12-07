@@ -10,12 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-#[Route('/cart')]
+#[Route('/{_locale}/cart')]
 class CartController extends AbstractController
 {
     #[Route('/', name: 'app_cart_index', methods: ['GET'])]
-    public function index(CartRepository $cartRepository): Response
+    public function index(CartRepository $cartRepository, TranslatorInterface $translator, EntityManagerInterface $em): Response
     {
         return $this->render('cart/index.html.twig', [
             'carts' => $cartRepository->findAll(),
@@ -71,7 +72,7 @@ class CartController extends AbstractController
     #[Route('/{id}', name: 'app_cart_delete', methods: ['POST'])]
     public function delete(Request $request, Cart $cart, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$cart->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $cart->getId(), $request->request->get('_token'))) {
             $entityManager->remove($cart);
             $entityManager->flush();
         }
