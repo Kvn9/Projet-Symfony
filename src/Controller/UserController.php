@@ -31,11 +31,13 @@ class UserController extends AbstractController
         CartRepository $cartRepository
     ): Response {
         $user = $this->getUser();
+        $allCarts = [];
+
         if ($user) {
             $form = $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
 
-            $allCarts = $cartRepository->findByStateFalse($user->getId());
+            $allCarts = $cartRepository->findBy(['user' => $user, 'state' => true]);
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $em->persist($user);
@@ -50,6 +52,7 @@ class UserController extends AbstractController
         return $this->render('user/edit.html.twig', [
             'user' => $user,
             'edit' => $form->createView(),
+            'carts' => $allCarts
         ]);
     }
 
