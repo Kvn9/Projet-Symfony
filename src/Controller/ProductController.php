@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use App\Entity\Cart;
-use PhpParser\Builder\Interface_;
 
 #[Route('/{_locale}')]
 class ProductController extends AbstractController

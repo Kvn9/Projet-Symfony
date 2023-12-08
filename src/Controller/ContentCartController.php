@@ -3,16 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\ContentCart;
-use App\Form\ContentCartType;
-use App\Repository\CartRepository;
-use App\Repository\ContentCartRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use App\Entity\Product;
 
 #[Route('/{_locale}/content/cart')]
 class ContentCartController extends AbstractController
