@@ -19,7 +19,10 @@ class RegistrationController extends AbstractController
     #[Route('/registration', name: 'app_registration')]
     public function index(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
-        // récuperer l'utilisateur connecté : $this->getuser();
+        // récuperer l'utilisateur connecté :
+        if($this->getuser()) {
+            $this->redirectToRoute('app_product_index');
+        }
 
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
