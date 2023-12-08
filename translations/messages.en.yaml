@@ -4,6 +4,8 @@ Prix: Price
 
 Name: Name
 
+
+
 footer:
   title: Link
   cord: Coordinated
@@ -16,6 +18,7 @@ footer:
   compte: My Account
   inscription: Sign up
   delete: Delete
+  reseaux: Social networks
 
 
 navbar: 
