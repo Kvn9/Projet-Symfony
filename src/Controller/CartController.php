@@ -55,10 +55,10 @@ class CartController extends AbstractController
         foreach ($contentCarts as $content) {
             $quantity = $content->getQuantity();
             $product = $content->getproduct();
-            $product->setQuantity($product->getQuantity() - $quantity);
+            $product->setStock($product->getStock() - $quantity);
             $em->persist($product);
             $em->flush();
-            if($product->getQuantity() <= 0) {
+            if($product->getStock() <= 0) {
                 $em->remove($content);
                 $can = false;
             }
