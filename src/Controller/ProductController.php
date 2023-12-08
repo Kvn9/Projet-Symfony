@@ -17,7 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use App\Entity\Cart;
 use PhpParser\Builder\Interface_;
 
-#[Route('/{_locale}/product')]
+#[Route('/{_locale}')]
 class ProductController extends AbstractController
 {
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
@@ -28,7 +28,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
+    #[Route('/product/new', name: 'app_product_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
         $product = new Product();
@@ -63,7 +63,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
+    #[Route('/product/{id}', name: 'app_product_show', methods: ['GET'])]
     public function show(Product $product): Response
     {
         return $this->render('product/show.html.twig', [
@@ -71,7 +71,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
+    #[Route('/product/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Product $product, EntityManagerInterface $em, TranslatorInterface $translator): Response
     {
         if ($product == null) {
@@ -107,7 +107,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_product_delete')]
+    #[Route('/product/delete/{id}', name: 'app_product_delete')]
     public function delete(Product $product, EntityManagerInterface $em, TranslatorInterface $translator): Response
     {
         if ($product == null) {
@@ -122,7 +122,7 @@ class ProductController extends AbstractController
         $this->addFlash('danger', $translator->trans('product.delete'));
         return $this->redirectToRoute('app_product_index');
     }
-    #[Route('/add/{id}', name: 'app_add_content_cart', methods: ['GET', 'POST'])]
+    #[Route('/product/add/{id}', name: 'app_add_content_cart', methods: ['GET', 'POST'])]
     public function toCart(Request $request, EntityManagerInterface $em, CartRepository $cartRepository, Product $product, TranslatorInterface $translator): Response
     {
         $user = $this->getUser();

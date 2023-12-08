@@ -1,3 +1,9 @@
+Envoyer: Send
+
+Prix: Price
+
+Name: Name
+
 footer:
   title: Link
   cord: Coordinated
@@ -30,6 +36,15 @@ user:
   new: New
   user : User
   edituser: Edit user
+  quantity: Quantity
+  prix : Price
+  nom: Name
+  commande : No previous orders
+  le : - order of
+  passe: passed on
+  ancienne : My previous orders
+  profil : My profile
+  register : Register
 
 
 product: 
@@ -42,7 +57,7 @@ product:
   new: New Product
   product: Product
   editproduct: Edit product
-  back : back to list
+  back : Back to list
   formation : List Formations
   add : Add new product
   list : No formations online
@@ -54,6 +69,7 @@ product:
   impossibleajoutimage: Impossible to add image
   model : Model not found
   formationadd : Formation added
+  record : no records found
   
 
 cart:

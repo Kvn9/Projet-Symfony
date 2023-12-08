@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}{{'user.user'|trans}}{% endblock %}
 
 {% block body %}
     <!-- Titre de la page -->
@@ -36,7 +36,7 @@
         {% else %}
             <!-- Affichage si aucun utilisateur n'est trouvé -->
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">{{'product.record' |trans}}</td>
             </tr>
         {% endfor %}
         </tbody>
