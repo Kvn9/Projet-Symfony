@@ -21,6 +21,15 @@ class ContentCartRepository extends ServiceEntityRepository
         parent::__construct($registry, ContentCart::class);
     }
 
+    public function findByCartId(int $cartId): array
+    {
+        return $this->createQueryBuilder('cc')
+            ->andWhere('cc.cart = :cartId')
+            ->setParameter('cartId', $cartId)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return ContentCart[] Returns an array of ContentCart objects
 //     */

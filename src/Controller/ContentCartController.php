@@ -53,14 +53,13 @@ class ContentCartController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_content_cart_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_content_cart_delete')]
     public function delete(Request $request, ContentCart $contentCart, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $contentCart->getId(), $request->request->get('_token'))) {
             $entityManager->remove($contentCart);
             $entityManager->flush();
-        }
 
-        return $this->redirectToRoute('app_content_cart_index', [], Response::HTTP_SEE_OTHER);
+
+        return $this->redirectToRoute('app_cart_index');
     }
 }

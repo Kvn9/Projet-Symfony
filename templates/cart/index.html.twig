@@ -3,35 +3,42 @@
 {% block title %}Cart index{% endblock %}
 
 {% block body %}
-    <h1>Cart index</h1>
-
+    <h3>Formation dans votre panier</h3>
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>BuyAt</th>
-                <th>State</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Image</th>
+            <th>Nom</th>
+            <th>Quantité</th>
+            <th>Prix</th>
+            <th>Date d'ajout</th>
+            <th>Action</th>
+        </tr>
         </thead>
         <tbody>
-        {% for cart in carts %}
-            <tr>
-                <td>{{ cart.id }}</td>
-                <td>{{ cart.buyAt ? cart.buyAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ cart.state ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('app_cart_show', {'id': cart.id}) }}">show</a>
-                    <a href="{{ path('app_cart_edit', {'id': cart.id}) }}">edit</a>
-                </td>
-            </tr>
+        {% set totalAmount = 0 %}
+
+        {% for c in contentCarts %}
+        <tr>
+            <td><img style="width: 70px" src="{{ asset('upload/' ~ c.product.picture) }}" alt="img-card" ></td>
+            <td>{{ c.product.name }}</td>
+            <td>{{ c.quantity }}</td>
+            <td>{{ c.quantity * c.product.prize }}</td>
+            <td>{{ c.createdAt|date('Y-m-d H:i:s') }}</td>
+            <td><a href="{{ path('app_content_cart_delete', {'id': c.id}) }}">Delete</a></td>
+        </tr>
+        {% set totalAmount = totalAmount + (c.quantity * c.product.prize) %}
         {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
+            <p>Aucune formations en ligne</p>
         {% endfor %}
         </tbody>
     </table>
+    {% if contentCarts is not empty %}
+       <div class="d-flex justify-content-between aligtn-items-center">
+           <p>Montant total : {{ totalAmount }} €</p>
+           <button><a href="{{ path('app_cart_pay', {'id': cartId}) }}">Payer</a></button>
+       </div>
+    {% endif %}
 
-    <a href="{{ path('app_cart_new') }}">Create new</a>
+
 {% endblock %}
