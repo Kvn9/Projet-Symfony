@@ -17,14 +17,6 @@ class Cart
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Assert\NotBlank]
-    #[Assert\Length(
-        min: 1,
-        max: 255,
-        minMessage: "Le nom doit contenir 1 caractère au minimun",
-        maxMessage: "Le nom ne doit pas contenir plus que 255 caractères"
-    )]
-
     #[ORM\ManyToOne(inversedBy: 'carts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
