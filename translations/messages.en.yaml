@@ -11,6 +11,7 @@ footer:
   inscription: Sign up
   delete: Delete
 
+
 navbar: 
   accueil: Home
   panier: Cart
@@ -28,10 +29,41 @@ user:
   edit: Edit
   new: New
   user : User
+  edituser: Edit user
 
 
 product: 
+  name: Name
+  description: Description
+  price: Price
+  quantity: Quantity
+  show: Show
+  edit: Edit
+  new: New Product
+  product: Product
+  editproduct: Edit product
+  back : back to list
+  formation : List Formations
+  add : Add new product
+  list : No formations online
+  create : Create new product
 
 cart:
+  add: Add to cart
+  edit: Edit cart
+  delete: Delete from cart
 
+login:
+  title: Login
+  email: Email
+  password: Password
+  submit: Submit
+  remember: Remember me
+  forgot: Forgot password ?
+  register: Register
+  error: Bad credentials
+  success: You are now logged in
+  logout: Logout
+  sign :  Thank you for signing up
+  login : Login ! 
 

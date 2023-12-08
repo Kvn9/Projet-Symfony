@@ -7,11 +7,30 @@ user:
   edit: Modifier
   new: Nouveau
   user : Utilisateur
+  edituser : Modifier l'utilisateur
 
 
 product: 
+  name: Nom
+  description: Description
+  price: Prix
+  quantity: Quantité
+  actions: Actions
+  show: Voir
+  edit: Modifier
+  new: Nouveau Produit
+  product: Produit
+  editproduct: Modifier le produit
+  back : Retour
+  formation : Liste des Formations
+  add : Ajouter un nouveau produit
+  list : Aucune formations en ligne
+  create : Créer un nouveau produit
 
 cart:
+  add: Ajouter au panier
+  edit: Modifier le panier
+  delete: Supprimer du panier
 
 
 footer:
@@ -33,6 +52,20 @@ navbar:
   inscription: Inscription
   connexion: Connexion
   deconnexion: Déconnexion
+
+login: 
+  title: Connexion
+  email: Email
+  password: Mot de passe
+  submit: Envoyer
+  remember: Se souvenir de moi
+  forgot: Mot de passe oublié ?
+  register: S'inscrire
+  error: Mauvais identifiants
+  success: Vous êtes maintenant connecté
+  logout: se déconnecter
+  sign :  Merci de vous inscrire
+  login: Merci de vous connecter !
 
 
 
