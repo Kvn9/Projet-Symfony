@@ -17,24 +17,41 @@ class Product
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Assert\NotBlank]
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "The name cannot be blank.")]
     #[Assert\Length(
         min: 1,
         max: 255,
-        minMessage: "Le nom doit contenir 1 caractère au minimun",
-        maxMessage: "Le nom ne doit pas contenir plus que 255 caractères"
+        minMessage: "The name must contain at least 1 character.",
+        maxMessage: "The name must not contain more than 255 characters."
     )]
-
-    #[ORM\Column(length: 255)]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\Length(
+        max: 1000,
+        maxMessage: "The description must not exceed 1000 characters."
+    )]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Assert\NotNull(message: "The prize cannot be blank.")]
+    #[Assert\Type(type: "float", message: "The prize must be a valid number.")]
+    #[Assert\Range(
+        min: 0,
+        max: 1000000,
+        notInRangeMessage: "The prize must be between {{ min }} and {{ max }}."
+    )]
     private ?float $prize = null;
 
     #[ORM\Column]
+    #[Assert\NotNull(message: "The stock cannot be blank.")]
+    #[Assert\Type(type: "integer", message: "The stock must be a valid integer.")]
+    #[Assert\Range(
+        min: 0,
+        max: 1000000,
+        notInRangeMessage: "The stock must be between {{ min }} and {{ max }}."
+    )]
     private ?int $stock = null;
 
     #[ORM\Column(length: 255, nullable: true)]
