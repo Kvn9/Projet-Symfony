@@ -3,9 +3,12 @@
 {% block title %}{{'product.new'|trans}}{% endblock %}
 
 {% block body %}
+    <!-- Titre de la page -->
     <h1>{{'product.create'|trans}}</h1>
 
+    <!-- Affichage du formulaire d'ajout de produit -->
     {{ form(add) }}
 
+    <!-- Lien de retour vers la liste des produits -->
     <a href="{{ path('app_product_index') }}">{{'product.back'|trans}}</a>
 {% endblock %}

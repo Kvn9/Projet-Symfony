@@ -3,42 +3,61 @@
 {% block title %}Cart index{% endblock %}
 
 {% block body %}
-    <h3>Formation dans votre panier</h3>
+    <!-- Titre de la page -->
+    <h3>{{'cart.formation-cart'|trans }}</h3>
+    
+    <!-- Tableau pour afficher les détails du panier -->
     <table class="table">
         <thead>
-        <tr>
-            <th>Image</th>
-            <th>Nom</th>
-            <th>Quantité</th>
-            <th>Prix</th>
-            <th>Date d'ajout</th>
-            <th>Action</th>
-        </tr>
+            <tr>
+                <th>{{'cart.image'|trans }}</th>
+                <th>{{'cart.nom'|trans }}</th>
+                <th>{{'cart.quantite'|trans }}</th>
+                <th>{{'cart.prix'|trans }}</th>
+                <th>{{'cart.date_ajout'|trans }}</th>
+                <th>{{'cart.action'|trans }}</th>
+            </tr>
         </thead>
         <tbody>
-        {% set totalAmount = 0 %}
+            <!-- Initialise la variable pour stocker le montant total du panier -->
+            {% set totalAmount = 0 %}
 
-        {% for c in contentCarts %}
-        <tr>
-            <td><img style="width: 70px" src="{{ asset('upload/' ~ c.product.picture) }}" alt="img-card" ></td>
-            <td>{{ c.product.name }}</td>
-            <td>{{ c.quantity }}</td>
-            <td>{{ c.quantity * c.product.prize }}</td>
-            <td>{{ c.createdAt|date('Y-m-d H:i:s') }}</td>
-            <td><a href="{{ path('app_content_cart_delete', {'id': c.id}) }}">Delete</a></td>
-        </tr>
-        {% set totalAmount = totalAmount + (c.quantity * c.product.prize) %}
-        {% else %}
-            <p>Aucune formations en ligne</p>
-        {% endfor %}
+            <!-- Boucle à travers les éléments du panier -->
+            {% for c in contentCarts %}
+                <tr>
+                    <!-- Colonne pour l'image du produit -->
+                    <td><img style="width: 70px" src="{{ asset('upload/' ~ c.product.picture) }}" alt="img-card" ></td>
+                    
+                    <!-- Colonne pour le nom du produit -->
+                    <td>{{ c.product.name }}</td>
+                    
+                    <!-- Colonne pour la quantité du produit -->
+                    <td>{{ c.quantity }}</td>
+                    
+                    <!-- Colonne pour le prix total du produit -->
+                    <td>{{ c.quantity * c.product.prize }}</td>
+                    
+                    <!-- Colonne pour la date d'ajout du produit au panier -->
+                    <td>{{ c.createdAt|date('Y-m-d H:i:s') }}</td>
+                    
+                    <!-- Colonne avec un lien pour supprimer le produit du panier -->
+                    <td><a href="{{ path('app_content_cart_delete', {'id': c.id}) }}">{{'cart.delete_1'|trans }}</a></td>
+                </tr>
+                
+                <!-- Ajoute le prix total du produit au montant total du panier -->
+                {% set totalAmount = totalAmount + (c.quantity * c.product.prize) %}
+            {% else %}
+                <!-- Si le panier est vide, affiche un message -->
+                <p>{{'cart.formation'|trans }}</p>
+            {% endfor %}
         </tbody>
     </table>
+    
+    <!-- Affiche le montant total du panier et le bouton de paiement si le panier n'est pas vide -->
     {% if contentCarts is not empty %}
-       <div class="d-flex justify-content-between aligtn-items-center">
-           <p>Montant total : {{ totalAmount }} €</p>
-           <button><a href="{{ path('app_cart_pay', {'id': cartId}) }}">Payer</a></button>
-       </div>
+        <div class="d-flex justify-content-between aligtn-items-center">
+            <p> {{'cart.montant-total'|trans }} : <strong>{{ totalAmount }} €</strong></p>
+            <button><a href="{{ path('app_cart_pay', {'id': cartId}) }}">{{'cart.payer'|trans }}</a></button>
+        </div>
     {% endif %}
-
-
 {% endblock %}

@@ -3,9 +3,12 @@
 {% block title %}{{'product.editproduct' |trans}}{% endblock %}
 
 {% block body %}
+    <!-- En-tête de la page avec le titre "Edit Product" -->
     <h1>{{'product.editproduct' |trans}}</h1>
+
+    <!-- Affichage du formulaire de modification du produit -->
     {{ form(edit) }}
 
+    <!-- Lien de retour vers la liste des produits -->
     <a href="{{ path('app_product_index') }}">{{'product.back'|trans}}</a>
-
 {% endblock %}

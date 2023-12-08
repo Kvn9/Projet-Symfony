@@ -47,11 +47,39 @@ product:
   add : Add new product
   list : No formations online
   create : Create new product
+  more: More information
+  danger : Product deleted
+  introuvable : Product not found
+  miseajour : Product updated
+  impossibleajoutimage: Impossible to add image
+  model : Model not found
+  formationadd : Formation added
+  
 
 cart:
   add: Add to cart
   edit: Edit cart
-  delete: Delete from cart
+  delete: Delete cart
+  more: More information
+  image: Image
+  nom: Name
+  prix: Price
+  quantite: Quantity
+  action: Action
+  date_ajout: Date added
+  delete_1: Delete
+  formation : No formations online
+  payer : Pay
+  montant-total : Total amount
+  formation-cart : Formations in your cart
+  produit : The product has been added to the cart
+  produit-delete: The product has been deleted from the cart
+  success : Payment successful. Thank you for your purchase !
+  danger : Some formations are out of stock, they have been removed from the cart.
+  connecter : Please log in to access your cart.
+  buy : BuyAt
+  cart : Cart
+  state : State
 
 login:
   title: Login
@@ -66,4 +94,11 @@ login:
   logout: Logout
   sign :  Thank you for signing up
   login : Login ! 
+
+error: 
+  retourner: Return 
+  accueil: to the home page
+  erreur404: Error 404
+  erreur500 : Error 500
+  erreur : Error
 

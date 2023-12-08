@@ -1,14 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+    <!-- Deux colonnes : Mon Profil et Mes anciennes commandes -->
     <div class="d-flex">
+        <!-- Colonne de gauche : Mon Profil -->
         <div class="w-50" style="margin-right: 30px">
             <h2> Mon profil </h2>
-            {{form(edit)}}
+            {{ form(edit) }} <!-- Affichage du formulaire de profil -->
         </div>
+
+        <!-- Colonne de droite : Mes anciennes commandes -->
         <div class="w-50">
             <h2>Mes anciennes commandes</h2>
+
+            <!-- Accordéon pour afficher chaque commande -->
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 {% for cart in carts %}
                     {# Initialise une variable pour stocker le montant total de la commande #}
@@ -19,13 +24,16 @@
                         {% set totalAmount = totalAmount + content.product.prize %}
                     {% endfor %}
 
+                    <!-- Élément de l'accordéon pour chaque commande -->
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingOne">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{ cart.id }}" aria-expanded="false" aria-controls="flush-collapseOne">
-                                Id: {{ cart.id }} -  commande de {{ totalAmount }}€ passée le {{ cart.buyAt | date('d/m/Y') }}                    </button>
+                                Id: {{ cart.id }} - commande de {{ totalAmount }}€ passée le {{ cart.buyAt | date('d/m/Y') }}
+                            </button>
                         </h2>
                         <div id="flush-collapse-{{ cart.id }}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
+                                <!-- Tableau affichant les détails des produits dans la commande -->
                                 <table class="table">
                                     <thead>
                                     <tr>
@@ -38,7 +46,7 @@
                                     </thead>
                                     <tbody>
                                     {% for content in cart.contentCarts %}
-
+                                        <!-- Ligne du tableau pour chaque produit dans la commande -->
                                         <tr>
                                             <td>{{ content.product.name }}</td>
                                             <td><img style="border-radius: 5px; width: 50px" src="{{ asset('upload/' ~ content.product.picture) }}" alt="img product" ></td>
@@ -47,7 +55,6 @@
                                             <td><a href="{{ path('app_product_show', {'id': content.product.id}) }}"><i class='bx bx-show'></i></a></td>
                                         </tr>
                                     {% endfor %}
-
                                     </tbody>
                                 </table>
                             </div>
@@ -56,11 +63,10 @@
 
                     <br>
                 {% else %}
+                    <!-- Message si aucune ancienne commande n'est trouvée -->
                     <p>Aucune ancienne commande</p>
                 {% endfor %}
             </div>
         </div>
     </div>
-
-
 {% endblock %}

@@ -26,11 +26,39 @@ product:
   add : Ajouter un nouveau produit
   list : Aucune formations en ligne
   create : Créer un nouveau produit
+  more: En savoir plus 
+  danger : Produit supprimé
+  introuvable : Produit introuvable
+  miseajour : Produit mis à jour
+  impossibleajoutimage: Impossible d'ajouter l'image
+  model : Modèle introuvable
+  formationadd : Formation ajoutée
 
 cart:
   add: Ajouter au panier
-  edit: Modifier le panier
-  delete: Supprimer du panier
+  edit: Modifier le produit
+  delete: Supprimer le produit
+  more: En savoir plus 
+  image: Image
+  nom: Nom
+  prix: Prix
+  quantite: Quantité
+  action: Action
+  date_ajout: Date d'ajout
+  delete_1: Supprimer
+  formation : Aucune formations en ligne
+  payer : Payer
+  montant-total : Montant total
+  formation-cart : Formations dans votre panier
+  produit : Le produit a bien été ajouté au panier
+  produit-delete : Le produit a bien été supprimé du panier
+  success : Paiement réussi. Merci pour votre achat !
+  danger : Des formations sont en rupture de stock, elles ont été retirées du panier.
+  connecter : Veuillez vous connecter pour accéder à votre panier.
+  buy : Acheter
+  cart : Panier
+  state : Etat
+
 
 
 footer:
@@ -66,6 +94,14 @@ login:
   logout: se déconnecter
   sign :  Merci de vous inscrire
   login: Merci de vous connecter !
+
+error :
+  retourner : Retourner
+  accueil : à la page d'accueil
+  erreur404 : Erreur 404
+  erreur500: Erreur 500
+  erreur: Erreur
+
 
 
 

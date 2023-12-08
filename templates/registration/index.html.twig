@@ -3,16 +3,26 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+    <!-- Titre de la page -->
     <h1>Register</h1>
 
+    <!-- Affichage des éventuelles erreurs de formulaire -->
     {{ form_errors(registrationForm) }}
 
+    <!-- Début du formulaire d'inscription -->
     {{ form_start(registrationForm) }}
+
+        <!-- Champ de saisie pour l'email -->
         {{ form_row(registrationForm.email) }}
+
+        <!-- Champ de saisie pour le mot de passe avec une option pour personnaliser le label -->
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
 
+        <!-- Bouton de soumission du formulaire -->
         <button type="submit" class="btn">Register</button>
+
+    <!-- Fin du formulaire -->
     {{ form_end(registrationForm) }}
 {% endblock %}

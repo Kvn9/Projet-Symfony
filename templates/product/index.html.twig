@@ -3,6 +3,7 @@
 {% block title %}{{'product.formation'|trans}}{% endblock %}
 
 {% block body %}
+    <!-- En-tête de la page avec un titre et, éventuellement, un lien d'ajout pour les administrateurs -->
     <div class="d-flex justify-content-between align-items-center">
         <h1>{{'product.formation'|trans}}</h1>
         {% if is_granted('ROLE_ADMIN') %}
@@ -10,22 +11,26 @@
         {% endif %}
     </div>
 
+    <!-- Conteneur pour afficher la liste des produits -->
     <div class="products d-flex ">
+        <!-- Boucle sur chaque produit dans la liste -->
         {% for product in products %}
+            <!-- Carte (card) affichant les détails du produit -->
             <div class="card" style="width: 18rem; margin-right: 30px">
+                <!-- Affiche l'image du produit s'il y en a une -->
                 {% if product.picture is not null %}
                     <img src="{{ asset('upload/' ~ product.picture) }}" alt="img-card" >
                 {% endif %}
+                <!-- Corps de la carte avec le nom, le prix et un lien "En savoir plus" -->
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text">{{ product.prize}} €</p>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary w-100">En savoir plus</a>
+                    <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary w-100">{{'product.more'|trans}}</a>
                 </div>
             </div>
         {% else %}
+            <!-- Message affiché si aucune formation n'est trouvée -->
             <p>{{'product.list'|trans}}</p>
         {% endfor %}
     </div>
-
-
 {% endblock %}
