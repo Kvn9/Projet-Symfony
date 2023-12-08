@@ -4,6 +4,8 @@ Prix : Prix
 
 Name : Nom
 
+
+
 user: 
   role: Rôle
   password: Mot de passe
@@ -90,6 +92,7 @@ footer:
   panier: Panier
   inscription: Inscription
   compte: Mon Compte
+  reseaux : Suivez-nous sur les réseaux sociaux
 
 navbar:
   accueil: Accueil
