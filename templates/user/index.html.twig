@@ -3,10 +3,13 @@
 {% block title %}User index{% endblock %}
 
 {% block body %}
+    <!-- Titre de la page -->
     <h1>{{'user.user'|trans}}</h1>
 
+    <!-- Tableau affichant les détails des utilisateurs -->
     <table class="table">
         <thead>
+            <!-- En-têtes du tableau -->
             <tr>
                 <th>Id</th>
                 <th>Email</th>
@@ -17,17 +20,21 @@
         </thead>
         <tbody>
         {% for user in users %}
+            <!-- Boucle sur chaque utilisateur -->
             <tr>
+                <!-- Affichage des détails de chaque utilisateur -->
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
                 <td>{{ user.password }}</td>
                 <td>
+                    <!-- Liens d'action pour chaque utilisateur (suppression et édition) -->
                     <a href="{{ path('app_user_delete', {'id': user.id}) }}" class= "btn btn-danger">{{'user.supprimer'|trans}}</a>
                     <a href="{{ path('app_user_edit', {'id': user.id}) }}" class= "btn btn-success">{{'user.edit'|trans}}</a>
                 </td>
             </tr>
         {% else %}
+            <!-- Affichage si aucun utilisateur n'est trouvé -->
             <tr>
                 <td colspan="5">no records found</td>
             </tr>
@@ -35,5 +42,6 @@
         </tbody>
     </table>
 
+    <!-- Lien pour créer un nouvel utilisateur -->
     <a href="{{ path('app_user_new') }}"> {{'user.new'|trans}}</a>
 {% endblock %}

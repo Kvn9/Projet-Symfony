@@ -54,12 +54,12 @@ class ContentCartController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'app_content_cart_delete')]
-    public function delete(Request $request, ContentCart $contentCart, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, ContentCart $contentCart, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
-            $entityManager->remove($contentCart);
-            $entityManager->flush();
+        $entityManager->remove($contentCart);
+        $entityManager->flush();
 
-
+        $this->addFlash('warning', $translator->trans('cart.produit-delete'));
         return $this->redirectToRoute('app_cart_index');
     }
 }

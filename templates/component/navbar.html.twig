@@ -1,22 +1,35 @@
 {# navbar.twig #}
 <nav class="d-flex align-items-center justify-content-between">
+    <!-- Section du logo avec un lien vers la page d'accueil -->
     <div class="logo d-flex align-items-center">
        <a href="{{ path('app_product_index') }}"> <img src="{{ asset('images/logo.png') }}"></a>
         <h1>Talent Craft</h1>
     </div>
+
+    <!-- Liste des liens de navigation -->
     <ul class="d-flex">
+        <!-- Lien vers la page d'accueil -->
         <li><a href="{{ path('app_product_index') }}">{{'navbar.accueil'|trans}}</a></li>
+        
+        <!-- Lien vers la page du panier -->
         <li><a href="{{ path('app_cart_index') }}">{{'navbar.panier'|trans}}</a></li>
 
+        <!-- Condition pour afficher des liens différents en fonction du rôle de l'utilisateur -->
         {% if is_granted('ROLE_USER') %}
+            <!-- Lien vers la page du compte utilisateur -->
             <li><a href="{{ path('app_user') }}">{{'navbar.compte'|trans}}</a></li>
+            
+            <!-- Lien de déconnexion -->
             <li><a href= "{{path('app_logout')}}" class="btn btn-primary"> {{'navbar.deconnexion'|trans}}</a></li>
         {% else %}
+            <!-- Lien vers la page d'inscription -->
             <li><a href="{{ path('app_registration') }}">{{'navbar.inscription'|trans}}</a></li>
+            
+            <!-- Lien vers la page de connexion -->
             <li><a href="{{ path('app_login') }}">{{'navbar.connexion'|trans}}</a></li>
         {% endif %}
-
     </ul>
     
+    <!-- Image des drapeaux  -->
     <img  class="drapeau" src="{{ asset('images/logo-eu.png') }}">
 </nav>
