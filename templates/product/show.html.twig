@@ -48,23 +48,23 @@
         <img src="{{ asset('upload/' ~ product.picture) }}" >
         <div class="w-100 h-100 d-flex flex-column justify-content-between">
             <div class="card">
-                <h1>{{ product.name }}</h1>
-                <h3>{{ product.prize }} €/formation</h3>
-                <div>
-                    <label for="productQuantity">Quantité</label>
+                <h1> <strong>{{ product.name }} </strong></h1>
+                <h3>{{ product.prize }}€ /Formation</h3> 
+                <div><br>
+                    <label for="productQuantity">{{'product.quantity'|trans}}</label> 
                     <select id="productQuantity" name="productQuantity">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                     </select>
-                </div>
+                </div><br>
                 <p>{{ product.description }}</p>
             </div>
             <div class="w-100">
-                <a><button type="submit" name="add-cart" class="w-100 d-flex justify-content-between align-items-center buy mt-3">Ajouter au panier <i class='bx bx-cart'></i></button></a>
+                <a><button type="submit" name="add-cart" class="w-100 d-flex justify-content-between align-items-center buy mt-3">{{'cart.add'|trans}}<i class='bx bx-cart'></i></button></a>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}"><button class="w-100 d-flex justify-content-center update mt-3">Modifier le produit</button></a>
-                    <a href="{{ path('app_product_delete', {'id': product.id}) }}"><button class="w-100 d-flex justify-content-center remove mt-3">Supprimer le produit</button></a>
+                    <a href="{{ path('app_product_edit', {'id': product.id}) }}"><button class="w-100 d-flex justify-content-center update mt-3">{{'cart.edit'|trans}}</button></a>
+                    <a href="{{ path('app_product_delete', {'id': product.id}) }}"><button class="w-100 d-flex justify-content-center remove mt-3">{{'cart.delete'|trans}}</button></a>
                 {% endif %}
             </div>
         </div>
