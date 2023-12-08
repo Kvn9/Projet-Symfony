@@ -3,28 +3,35 @@
 {% block title %}Cart{% endblock %}
 
 {% block body %}
-    <h1>Cart</h1>
+    <h1>{{'cart.cart' |trans}}</h1>
 
+    <!-- Tableau pour afficher les détails du panier -->
     <table class="table">
         <tbody>
+            <!-- ID du panier -->
             <tr>
                 <th>Id</th>
                 <td>{{ cart.id }}</td>
             </tr>
+            <!-- Date d'achat du panier -->
             <tr>
-                <th>BuyAt</th>
+                <th>{{'cart.buy' |trans}}</th>
                 <td>{{ cart.buyAt ? cart.buyAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+            <!-- État du panier (payé ou non) -->
             <tr>
-                <th>State</th>
+                <th>{{'cart.state' |trans}}</th>
                 <td>{{ cart.state ? 'Yes' : 'No' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_cart_index') }}">back to list</a>
+    <!-- Liens de navigation -->
+    <a href="{{ path('app_cart_index') }}">{{'product.back' |trans}}</a>
 
-    <a href="{{ path('app_cart_edit', {'id': cart.id}) }}">edit</a>
+    <!-- Lien pour éditer le panier -->
+    <a href="{{ path('app_cart_edit', {'id': cart.id}) }}">{{'cart.edit' |trans}}</a>
 
+    <!-- Inclut le formulaire de suppression du panier -->
     {{ include('cart/_delete_form.html.twig') }}
 {% endblock %}

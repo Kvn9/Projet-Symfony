@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use App\Entity\Cart;
+use PhpParser\Builder\Interface_;
 
 #[Route('/{_locale}/product')]
 class ProductController extends AbstractController
@@ -28,7 +29,7 @@ class ProductController extends AbstractController
     }
 
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
@@ -44,7 +45,7 @@ class ProductController extends AbstractController
                         $newFilename
                     );
                 } catch (FileException $e) {
-                    $this->addFlash('danger', 'Impossible d\'ajouter l\'image.');
+                    $this->addFlash('danger', $translator->trans('product.impossibleajoutimage'));
                 }
                 $product->setPicture($newFilename);
             }
@@ -52,6 +53,7 @@ class ProductController extends AbstractController
             $entityManager->persist($product);
             $entityManager->flush();
 
+            $this->addFlash('success', $translator->trans('product.formationadd'));
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -70,10 +72,10 @@ class ProductController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Product $product, EntityManagerInterface $em): Response
+    public function edit(Request $request, Product $product, EntityManagerInterface $em, TranslatorInterface $translator): Response
     {
         if ($product == null) {
-            $this->addFlash('danger', 'Model introuvable');
+            $this->addFlash('danger',  $translator->trans('product.model'));
             return $this->redirectToRoute('app_model');
         }
 
@@ -90,13 +92,13 @@ class ProductController extends AbstractController
                         $newFilename
                     );
                 } catch (FileException $e) {
-                    $this->addFlash('danger', 'Impossible d\'ajouter l\'image.');
+                    $this->addFlash('danger', $translator->trans('product.impossibleajoutimage'));
                 }
                 $product->setPicture($newFilename);
             }
             $em->persist($product);
             $em->flush();
-            $this->addFlash('success', 'Formation mis à jour');
+            $this->addFlash('success', $translator->trans('product.miseajour'));
 
             return $this->redirectToRoute('app_product_index');
         }
@@ -106,21 +108,22 @@ class ProductController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'app_product_delete')]
-    public function delete(Product $product, EntityManagerInterface $em): Response
+    public function delete(Product $product, EntityManagerInterface $em, TranslatorInterface $translator): Response
     {
         if ($product == null) {
-            $this->addFlash('danger', 'Produit introuvable');
+            $this->addFlash('danger', $translator->trans('product.introuvable'));
             return $this->redirectToRoute('app_product_index');
         }
 
         $em->remove($product);
         $em->flush();
 
-        $this->addFlash('warning', 'Produit supprimé');
+
+        $this->addFlash('danger', $translator->trans('product.delete'));
         return $this->redirectToRoute('app_product_index');
     }
     #[Route('/add/{id}', name: 'app_add_content_cart', methods: ['GET', 'POST'])]
-    public function toCart(Request $request, EntityManagerInterface $em, CartRepository $cartRepository, Product $product): Response
+    public function toCart(Request $request, EntityManagerInterface $em, CartRepository $cartRepository, Product $product, TranslatorInterface $translator): Response
     {
         $user = $this->getUser();
 
@@ -148,7 +151,8 @@ class ProductController extends AbstractController
 
             $em->persist($contentCart);
             $em->flush();
+            $this->addFlash('success', $translator->trans('cart.produit'));
         }
-        return $this->redirectToRoute('app_product_show', ['id' => $product->getId()]);
+        return $this->redirectToRoute('app_product_index', ['id' => $product->getId()]);
     }
 }

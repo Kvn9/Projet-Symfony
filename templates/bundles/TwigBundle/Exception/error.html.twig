@@ -3,8 +3,8 @@
 
 {% block body %}
     <div class="msg-error">
-        <h3>ERREUR 404</h3>
-        <p><a href="{{ path('app_product_index') }}">Retourner</a> à la page d’accueil</p>
+        <h3>{{'error.erreur' |trans}}</h3>
+        <p><a href="{{ path('app_product_index') }}">{{'error.retourner' |trans}}</a>{{'error.accueil' |trans}}</p>
     </div>
     <img class="error" src="{{ asset('images/error.png') }}">
 {% endblock %}

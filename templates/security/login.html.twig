@@ -3,29 +3,39 @@
 {% block title %}{{'login.login'|trans}}{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <!-- Formulaire de connexion -->
+    <form method="post">
+        {% if error %}
+            <!-- Affiche un message d'erreur en cas d'échec de connexion -->
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            {{'login.success'|trans}} {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">{{'login.logout'|trans}}</a>
-        </div>
-    {% endif %}
+        {% if app.user %}
+            <!-- Si l'utilisateur est déjà connecté, affiche un message de succès et un lien de déconnexion -->
+            <div class="mb-3">
+                {{'login.success'|trans}} {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">{{'login.logout'|trans}}</a>
+            </div>
+        {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">{{'login.sign'|trans}}</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">{{'login.password'|trans}}</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+        <!-- Titre du formulaire -->
+        <h1 class="h3 mb-3 font-weight-normal">{{'login.sign'|trans}}</h1>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+        <!-- Champ pour l'email -->
+        <label for="inputEmail">Email</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        {{'login.submit'|trans}}
-    </button>
-</form>
+        <!-- Champ pour le mot de passe -->
+        <label for="inputPassword">{{'login.password'|trans}}</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+        <!-- Champ caché pour le jeton CSRF (Cross-Site Request Forgery) -->
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}"
+        >
+
+        <!-- Bouton de soumission du formulaire -->
+        <button class="btn btn-lg btn-primary" type="submit">
+            {{'login.submit'|trans}}
+        </button>
+    </form>
 {% endblock %}
