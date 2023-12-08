@@ -1,20 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <!-- Deux colonnes : Mon Profil et Mes anciennes commandes -->
-    <div class="d-flex">
-        <!-- Colonne de gauche : Mon Profil -->
-        <div class="w-50" style="margin-right: 30px">
+{% block title %}Admin{% endblock %}
 
-            <h2> {{'user.profil' |trans}} </h2>
-            {{ form(edit) }} <!-- Affichage du formulaire de profil -->
+{% block body %}
+    <div class="d-flex">
+        <div class="w-50" style="margin-right: 20px">
+            <h3>Liste des users</h3>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th>Created At</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.roles|join(', ') }}</td>
+                        <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : 'N/A' }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
 
-        <!-- Colonne de droite : Mes anciennes commandes -->
         <div class="w-50">
-            <h2>{{'user.ancienne' |trans}}</h2>
-
-            <!-- Accordéon pour afficher chaque commande -->
+            <h3>Liste des commandes en cours</h3>
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 {% for cart in carts %}
                     {# Initialise une variable pour stocker le montant total de la commande #}
@@ -29,7 +45,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingOne">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{ cart.id }}" aria-expanded="false" aria-controls="flush-collapseOne">
-                                Id: {{ cart.id }} {{'user.le' |trans}} {{ totalAmount }}€  {{'user.passe' |trans}} {{ cart.buyAt | date('d/m/Y') }}
+                                Id: {{ cart.id }} - panier de {{ cart.user.firstName }} {{ cart.user.lastName }}
                             </button>
                         </h2>
                         <div id="flush-collapse-{{ cart.id }}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
@@ -38,11 +54,11 @@
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th>{{'user.nom' |trans}}</th>
+                                        <th>Nom</th>
                                         <th>Image</th>
-                                        <th>{{'user.quantity' |trans}}</th>
-                                        <th>{{'user.prix' |trans}}</th>
-                                        <th>{{'user.actions' |trans}}</th>
+                                        <th>Quantité</th>
+                                        <th>Prix</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -65,9 +81,10 @@
                     <br>
                 {% else %}
                     <!-- Message si aucune ancienne commande n'est trouvée -->
-                    <p>{{'user.commande' |trans }}</p>
+                    <p>Aucune ancienne commande</p>
                 {% endfor %}
             </div>
         </div>
     </div>
+
 {% endblock %}

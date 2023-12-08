@@ -12,10 +12,15 @@
     <!-- Début du formulaire d'inscription -->
     {{ form_start(registrationForm) }}
 
-        <!-- Champ de saisie pour l'email -->
-        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.firstName) }}
 
-        <!-- Champ de saisie pour le mot de passe avec une option pour personnaliser le label -->
+    {{ form_row(registrationForm.lastName) }}
+
+    <!-- Champ de saisie pour l'email -->
+    {{ form_row(registrationForm.email) }}
+
+
+    <!-- Champ de saisie pour le mot de passe avec une option pour personnaliser le label -->
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}

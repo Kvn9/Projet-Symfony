@@ -66,6 +66,7 @@ class UserController extends AbstractController
         ]);
     }
 
+
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -91,7 +92,6 @@ class UserController extends AbstractController
         ]);
     }
 
-    // TODO check
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
