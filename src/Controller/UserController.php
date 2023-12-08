@@ -56,8 +56,6 @@ class UserController extends AbstractController
         ]);
     }
 
-
-
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -78,29 +76,12 @@ class UserController extends AbstractController
         ]);
     }
 
+    //TODO check
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
             'user' => $user,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('user/test', [
-            'user' => $user,
-            'edit' => $form->createView(),
         ]);
     }
 

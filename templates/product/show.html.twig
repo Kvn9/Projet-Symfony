@@ -84,8 +84,8 @@
 
                 <!-- Boutons d'édition et de suppression (visible uniquement pour les administrateurs) -->
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}"><button class="w-100 d-flex justify-content-center update mt-3">{{'cart.edit'|trans}}</button></a>
-                    <a href="{{ path('app_product_delete', {'id': product.id}) }}"><button class="w-100 d-flex justify-content-center remove mt-3">{{'cart.delete'|trans}}</button></a>
+                    <a href="{{ path('app_product_edit', {'id': product.id}) }}"><button type="button" class="w-100 d-flex justify-content-center update mt-3">{{'cart.edit'|trans}}</button></a>
+                    <a href="{{ path('app_product_delete', {'id': product.id}) }}"><button type="button" class="w-100 d-flex justify-content-center remove mt-3">{{'cart.delete'|trans}}</button></a>
                 {% endif %}
             </div>
         </div>

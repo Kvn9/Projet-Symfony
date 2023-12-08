@@ -63,15 +63,12 @@ class CartController extends AbstractController
         // Parcours les contenus du panier
         foreach ($contentCarts as $content) {
             $quantity = $content->getQuantity();
-            $product = $content->getProduct();
-
-            // Met à jour la quantité du produit en conséquence
-            $product->setQuantity($product->getQuantity() - $quantity);
+            $product = $content->getproduct();
+            $product->setStock($product->getStock() - $quantity);
             $em->persist($product);
             $em->flush();
+            if($product->getStock() <= 0) {
 
-            if ($product->getQuantity() <= 0) {
-                // Supprime le contenu du panier si la quantité du produit est épuisée
                 $em->remove($content);
                 $can = false;
             }

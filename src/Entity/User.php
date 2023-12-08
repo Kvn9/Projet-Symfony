@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -18,15 +19,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Assert\NotBlank]
-    #[Assert\Length(
-        min: 1,
-        max: 255,
-        minMessage: "Le nom doit contenir 1 caractère au minimun",
-        maxMessage: "Le nom ne doit pas contenir plus que 255 caractères"
-    )]
-
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(message: "The email cannot be blank.")]
+    #[Assert\Email(message: "The email '{{ value }}' is not a valid email.")]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -36,6 +31,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NotBlank(message: "The password cannot be blank.")]
+    #[Assert\Length(
+        min: 6,
+        max: 255,
+        minMessage: "The password must be at least {{ limit }} characters long.",
+        maxMessage: "The password cannot be longer than {{ limit }} characters."
+    )]
     private ?string $password = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Cart::class)]
