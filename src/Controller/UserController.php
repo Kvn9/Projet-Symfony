@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\CartRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,12 +27,15 @@ class UserController extends AbstractController
     #[Route('/me', name: 'app_user')]
     public function user(
         EntityManagerInterface $em,
-        Request $request
+        Request $request,
+        CartRepository $cartRepository
     ): Response {
         $user = $this->getUser();
         if ($user) {
             $form = $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
+
+            $allCarts = $cartRepository->findByStateFalse($user->getId());
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $em->persist($user);

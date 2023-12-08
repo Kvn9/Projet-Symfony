@@ -10,73 +10,81 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use App\Repository\ContentCartRepository;
+
 
 #[Route('/{_locale}/cart')]
 class CartController extends AbstractController
 {
     #[Route('/', name: 'app_cart_index', methods: ['GET'])]
-    public function index(CartRepository $cartRepository, EntityManagerInterface $em): Response
+    public function index(CartRepository $cartRepository, EntityManagerInterface $em, ContentCartRepository $contentCartRepository): Response
     {
-        return $this->render('cart/index.html.twig', [
-            'carts' => $cartRepository->findAll(),
-        ]);
-    }
+        $user = $this->getUser();
+        $contentCarts = [];
+        if($user) {
+            $carts = $cartRepository->findByStateFalse($user->getId());
+            if(empty($carts)) {
+                $cart = new Cart();
+                $cart->setUser($user)
+                    ->setState(false);
+                $em->persist($cart);
+                $em->flush();
+            } else {
+                $cart = $carts[0];
+            }
+            $contentCarts = $contentCartRepository->findByCartId($cart->getId());
 
-    #[Route('/new', name: 'app_cart_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $cart = new Cart();
-        $form = $this->createForm(CartType::class, $cart);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($cart);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_cart_index', [], Response::HTTP_SEE_OTHER);
+        } else {
+            return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('cart/new.html.twig', [
-            'cart' => $cart,
-            'form' => $form,
+
+        return $this->render('cart/index.html.twig', [
+            'contentCarts' => $contentCarts,
+            'cartId' => $cart->getId()
         ]);
     }
 
-    #[Route('/{id}', name: 'app_cart_show', methods: ['GET'])]
-    public function show(Cart $cart): Response
+
+    #[Route('/pay/{id}', name: 'app_cart_pay', methods: ['GET', 'POST'])]
+    public function pay(Request $request, Cart $cart, EntityManagerInterface $em, ContentCartRepository $contentCartRepository): Response
     {
-        return $this->render('cart/show.html.twig', [
-            'cart' => $cart,
-        ]);
+        $can = true;
+        $contentCarts = $contentCartRepository->findByCartId($cart->getId());
+
+        foreach ($contentCarts as $content) {
+            $quantity = $content->getQuantity();
+            $product = $content->getproduct();
+            $product->setQuantity($product->getQuantity() - $quantity);
+            $em->persist($product);
+            $em->flush();
+            if($product->getQuantity() <= 0) {
+                $em->remove($content);
+                $can = false;
+            }
+
+        }
+        if($can) {
+            $cart->setState(true)
+                ->setBuyAt(new \DateTime());
+
+            $em->persist($cart);
+            $em->flush();
+            return $this->redirectToRoute('app_product_index');
+        }
+
+        $this->addFlash('danger', 'Des formations sont en rupture de stock, elles ont été retiré du panier.');
+
+        return $this->redirectToRoute('app_cart_index');
     }
 
-    #[Route('/{id}/edit', name: 'app_cart_edit', methods: ['GET', 'POST'])]
+    #[Route('/all', name: 'app_cart_all', methods: ['GET', 'POST'])]
     public function edit(Request $request, Cart $cart, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(CartType::class, $cart);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_cart_index', [], Response::HTTP_SEE_OTHER);
-        }
-
+//TODO bloqué les user qui ne sont pas super admin
         return $this->render('cart/edit.html.twig', [
-            'cart' => $cart,
-            'form' => $form,
+
         ]);
     }
 
-    #[Route('/{id}', name: 'app_cart_delete', methods: ['POST'])]
-    public function delete(Request $request, Cart $cart, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete' . $cart->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($cart);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_cart_index', [], Response::HTTP_SEE_OTHER);
-    }
 }
