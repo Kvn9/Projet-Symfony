@@ -1,45 +1,10 @@
+{# show.twig #}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Product{% endblock %}
+{% block title %} Talent Craft | {{'product.product' |trans}}{% endblock %}
 {% block stylesheets %}
-    <style>
-    .detail button{
-        border-radius: 5px;
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-        padding: 15px 30px;
-        color: #FFF;
-        text-align: justify;
-        font-size: 20px;
-        font-weight: 700;
-        border: none;
-        outline: none;
-    }
-    .detail button.buy {
-        background: #59ABD9;
-    }
-    .detail button.remove {
-        background: #D95959;
-    }
-    .detail button.update {
-        background: #EE742F;
-    }
-    .detail .card {
-        border-radius: 5px;
-        background: #F9F9F9;
-        padding: 10px;
-    }
-
-    .detail img {
-        margin-right: 50px;
-        border-radius: 10px;
-        width: 35%;
-    }
-
-    a {
-        text-decoration: none;
-    }
-
-    </style>
+    
 {% endblock %}
 
 {% block body %}
@@ -65,9 +30,9 @@
                 <div>
                     <label for="productQuantity">{{'product.quantity'|trans}}</label> 
                     <select id="productQuantity" name="productQuantity">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
+                    {% for i in range (1, 30) %}
+                        <option value="{{i}}">{{i}}</option>
+                    {% endfor %}
                     </select>
                 </div>
 

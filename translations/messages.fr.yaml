@@ -1,3 +1,11 @@
+Envoyer : Envoyer
+
+Prix : Prix
+
+Name : Nom
+
+
+
 user: 
   role: Rôle
   password: Mot de passe
@@ -8,6 +16,17 @@ user:
   new: Nouveau
   user : Utilisateur
   edituser : Modifier l'utilisateur
+  quantity: Quantité
+  prix : Prix
+  nom : Nom
+  commande : Aucune ancienne commande
+  le : - commande de
+  passe : passé le 
+  ancienne : Mes anciennes commandes
+  profil : Mon profil
+  register : S'inscrire
+  
+
 
 
 product: 
@@ -33,6 +52,7 @@ product:
   impossibleajoutimage: Impossible d'ajouter l'image
   model : Modèle introuvable
   formationadd : Formation ajoutée
+  record : aucun enregistrement n'a été trouvé
 
 cart:
   add: Ajouter au panier
@@ -72,6 +92,7 @@ footer:
   panier: Panier
   inscription: Inscription
   compte: Mon Compte
+  reseaux : Suivez-nous sur les réseaux sociaux
 
 navbar:
   accueil: Accueil
