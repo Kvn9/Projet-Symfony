@@ -12,6 +12,11 @@
             {% if is_granted('ROLE_USER') %}
                 <a class="nav-link" href="{{ path('app_user') }}">{{'navbar.compte'|trans}}</a>
             {% endif %}
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <a class="nav-link" href="{{ path('app_super_admin') }}">Admin</a>
+
+            {% endif %}
+
         </div>
         <div class="language d-flex align-items-center">
             <div class="d-flex align-items-center justify-content-center" style="margin-right: 10px">

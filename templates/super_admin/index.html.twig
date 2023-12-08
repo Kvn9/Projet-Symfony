@@ -1,19 +1,36 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Admin{% endblock %}
+
 {% block body %}
-    <!-- Deux colonnes : Mon Profil et Mes anciennes commandes -->
     <div class="d-flex">
-        <!-- Colonne de gauche : Mon Profil -->
-        <div class="w-50" style="margin-right: 30px">
-            <h2> Mon profil </h2>
-            {{ form(edit) }}
+        <div class="w-50" style="margin-right: 20px">
+            <h3>Liste des users</h3>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th>Created At</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.roles|join(', ') }}</td>
+                        <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : 'N/A' }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
 
-        <!-- Colonne de droite : Mes anciennes commandes -->
         <div class="w-50">
-            <h2>Mes anciennes commandes</h2>
-
-            <!-- Accordéon pour afficher chaque commande -->
+            <h3>Liste des commandes en cours</h3>
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 {% for cart in carts %}
                     {# Initialise une variable pour stocker le montant total de la commande #}
@@ -28,7 +45,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingOne">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{ cart.id }}" aria-expanded="false" aria-controls="flush-collapseOne">
-                                Id: {{ cart.id }} - commande de {{ totalAmount }}€ passée le {{ cart.buyAt | date('d/m/Y') }}
+                                Id: {{ cart.id }} - panier de {{ cart.user.firstName }} {{ cart.user.lastName }}
                             </button>
                         </h2>
                         <div id="flush-collapse-{{ cart.id }}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
@@ -69,4 +86,5 @@
             </div>
         </div>
     </div>
+
 {% endblock %}
