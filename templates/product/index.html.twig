@@ -13,7 +13,16 @@
 
     <div class="products d-flex ">
         {% for product in products %}
-            {% include 'component/card-product.html.twig' %}
+            <div class="card" style="width: 18rem; margin-right: 30px">
+                {% if product.picture is not null %}
+                    <img src="{{ asset('upload/' ~ product.picture) }}" alt="img-card" >
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.prize}} €</p>
+                    <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary w-100">En savoir plus</a>
+                </div>
+            </div>
         {% else %}
             <p>Aucune formations en ligne</p>
         {% endfor %}

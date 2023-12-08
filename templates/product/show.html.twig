@@ -44,7 +44,8 @@
 {% endblock %}
 
 {% block body %}
-    <form class="d-flex detail h-100 mt-5" method="post" action="{{ path('app_add_content_cart', {'id': product.id}) }}">
+    <div class="w-100 d-flex justify-content-end mt-5 mb-3"><a href="{{ path('app_product_index')}}" class="d-flex justify-content-center p-2" style="background: #3b82f6; border-radius: 100%"><i class='bx bx-arrow-back' style="color: white" ></i></a></div>
+    <form class="d-flex detail h-100" method="post" action="{{ path('app_add_content_cart', {'id': product.id}) }}">
         <img src="{{ asset('upload/' ~ product.picture) }}" >
         <div class="w-100 h-100 d-flex flex-column justify-content-between">
             <div class="card">

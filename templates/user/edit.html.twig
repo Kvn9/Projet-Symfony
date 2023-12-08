@@ -2,6 +2,64 @@
 
 {% block body %}
 
-<h2> Modifier un Utilisateur </h2>
-{{form(edit)}}
+    <div class="d-flex">
+        <div class="w-50" style="margin-right: 30px">
+            <h2> Mon profil </h2>
+            {{form(edit)}}
+        </div>
+        <div class="w-50">
+            <h2>Mes anciennes commandes</h2>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                {% for cart in carts %}
+                    {# Initialise une variable pour stocker le montant total de la commande #}
+                    {% set totalAmount = 0 %}
+
+                    {% for content in cart.contentCarts %}
+                        {# Ajoute le prix de chaque produit au montant total #}
+                        {% set totalAmount = totalAmount + content.product.prize %}
+                    {% endfor %}
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{ cart.id }}" aria-expanded="false" aria-controls="flush-collapseOne">
+                                Id: {{ cart.id }} -  commande de {{ totalAmount }}€ passée le {{ cart.buyAt | date('d/m/Y') }}                    </button>
+                        </h2>
+                        <div id="flush-collapse-{{ cart.id }}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Image</th>
+                                        <th>Quantité</th>
+                                        <th>Prix</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for content in cart.contentCarts %}
+
+                                        <tr>
+                                            <td>{{ content.product.name }}</td>
+                                            <td><img style="border-radius: 5px; width: 50px" src="{{ asset('upload/' ~ content.product.picture) }}" alt="img product" ></td>
+                                            <td>{{ content.quantity }}</td>
+                                            <td>{{ content.quantity * content.product.prize }} €</td>
+                                            <td><a href="{{ path('app_product_show', {'id': content.product.id}) }}"><i class='bx bx-show'></i></a></td>
+                                        </tr>
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                {% else %}
+                    <p>Aucune ancienne commande</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
